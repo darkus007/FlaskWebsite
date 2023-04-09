@@ -1,0 +1,55 @@
+{% extends 'flats/base.html' %}
+
+{% block content %}
+	<h1>{{ flats.name }}</h1>
+	<br>
+	<p>{{ flats.address }}.</p>
+	<p>{% if flats.rooms == -1 %}
+		Студия
+		{% else %}
+		{{ flats.rooms }} к
+		{% endif %}
+		| Площадь {{ flats.area }} м | Этаж {{ flats.floor }} |
+		{% if flats.finishing == 1 %}
+		С отделкой
+		{% else %}
+		 Без отделки
+		{% endif %}
+		| Заселение {{ flats.settlement_date }}
+	</p>
+    <div class="cls-button">
+		<a onclick="javascript:history.back(); return false;"><< Предыдущая страница</a>
+		<div class="space"></div>
+		<a target="_blank" href="{{ flats.url }}{{ flats.url_suffix }}">Смотреть на сайте застройщика >></a>
+	</div>
+	<br><br>
+
+    <p>Динамика изменения цены:</p>
+	<table class="table table-hover">
+	  <thead>
+		<tr>
+<!--		  <th scope="col">ID</th>-->
+		  <th scope="col">Дата</th>
+		  <th scope="col">Цена</th>
+		  <th scope="col">Бронь</th>
+		  <th scope="col">Предложение</th>
+		  <th scope="col">Описание</th>
+		</tr>
+	  </thead>
+	  <tbody>
+
+	  	{% for price in prices %}
+		<tr>
+<!--		  <th scope="row">{{ price.flat }}</th>-->
+		  <th scope="row" width="80">{{ price.data_created }}</th>
+		  <td>{{ price.price }} руб.</td>
+		  <td>{{ price.booking_status }}</td>
+		  <td>{{ price.benefit_name }}</td>
+		  <td>{{ price.benefit_description }}</td>
+		</tr>
+	  	{% endfor %}
+
+	  </tbody>
+	</table>
+	<br><br>
+{% endblock %}
