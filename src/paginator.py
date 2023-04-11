@@ -63,7 +63,7 @@ class Paginator:
         top = bottom + self.per_page
         if top + self.orphans >= self.count():
             top = self.count
-        return self._get_page(self.object_list[bottom:top], number, self)
+        return self._get_page(self.object_list, number, self)
 
     def _get_page(self, *args, **kwargs):
         """
@@ -150,12 +150,3 @@ class Page(collections.abc.Sequence):
         if self.number == self.paginator.num_pages:
             return self.paginator.count
         return self.number * self.paginator.per_page
-
-
-class Pagination(Page):
-    def __init__(self, object_list, number, per_page, orphans=0, allow_empty_first_page=True):
-        Page.__init__(self, object_list=object_list, number=number)
-        self.paginator = Paginator(object_list=object_list,
-                                   per_page=per_page,
-                                   orphans=orphans,
-                                   allow_empty_first_page=allow_empty_first_page)
