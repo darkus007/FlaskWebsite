@@ -7,13 +7,13 @@ app = Flask(__name__)
 
 
 @app.route("/")
-def index():
+def index() -> str:
     paginator, all_flats = get_project_flats(request)
     return render_template('flats/table_cls.html', flats=all_flats, page_obj=paginator)
 
 
 @app.route('/project/<int:project_id>/')
-def project(project_id: int):
+def project(project_id: int) -> str:
     paginator, project_flats = get_project_flats(request, project_id)
     return render_template('flats/table_cls.html', flats=project_flats, page_obj=paginator)
 
