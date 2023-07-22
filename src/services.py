@@ -2,8 +2,8 @@ from flask import Request
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from paginator import Paginator
-from models import engine, Price, Flat, Project
+from .paginator import Paginator
+from .models import engine, Price, Flat, Project
 
 
 def get_project_flats(request: Request,

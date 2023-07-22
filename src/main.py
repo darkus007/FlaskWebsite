@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 
-from services import get_flat_and_prices, get_all_projects, get_project_flats
+from .services import get_flat_and_prices, get_all_projects, get_project_flats
 
 
 app = Flask(__name__)

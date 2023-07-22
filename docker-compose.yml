@@ -1,0 +1,41 @@
+version: "3.8"
+
+name: flask-website
+
+services:
+
+  nginx:
+    build: ./nginx
+    container_name: flask_nginx
+    restart: always
+    volumes:
+      - flask_static:/website/src/static
+    ports:
+      - "80:80"
+    depends_on:
+      - website
+
+  website:
+    build: .
+    container_name: flask_website
+    command: gunicorn -w 4 'src.main:app' --bind 0.0.0.0:8000
+    restart: always
+    volumes:
+      - flask_static:/website/src/static
+    env_file:
+      - .env
+    depends_on:
+      - postgres_db
+
+  postgres_db:
+    image: postgres:15.2-alpine
+    container_name: flask_postgres
+    restart: always
+    volumes:
+      - flats_database:/var/lib/postgresql/data/
+    env_file:
+      - .env
+
+volumes:
+  flats_database:
+  flask_static:
